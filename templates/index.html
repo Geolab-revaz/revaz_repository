@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block title %} Index {% endblock %}
 {% block content %} 
+{% if products %}
 
+
+{% for item in products %}
+   <p> {{ item.pname }} {{ item.price }} {{item.trademark}} {{item.description}} </p>
+    {% endfor %}
+    {% else %}
+    <p> პროდუქტი ვერ მოიძებნა </p>
+    {% endif %}
+    
     <h1>default</h1>
     <h2>default</h2>
     <h3>default</h3>

@@ -1,16 +1,12 @@
+from itertools import product
+from math import prod
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
-
+from database import users, production as products
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pbase.db'
 db = SQLAlchemy(app)
-
-
-@app.route("/")
-@app.route("/home")
-def main():
-    return render_template("index.html")
 
 class Product (db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,9 +18,32 @@ class Product (db.Model):
     def __repr__(self):
         return '<Product %r>' % self.pname
 
+class Users (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(10), nullable=False)
+    
+    def __repr__(self):
+        return '<Users %r>' % self.email
+
+
+@app.route("/")
+@app.route("/home")
+def main():
+    products  = Product.query.all()
+    return render_template("index.html", products=products)
 
 
 
+def insertdata():
+    for product in products:
+        product = Product(pname=product.get("Product"), price=product.get("Price"), trademark=product.get("Trademark"), description=product.get("Description"))
+        db.session.add (product)
+        db.session.commit()
+    for user in users:
+        user = Users(email=user.get("email"),password=user.get("password"))
+        db.session.add (user)
+        db.session.commit()
 
 
 

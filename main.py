@@ -47,6 +47,23 @@ def insertdata():
 
 
 
+
+
+# @app.route("/product/add")
+# def product_add():
+#     products = product(start="2023", finish="2024", position="Web Developer")
+#     db.session.add(work)
+#     db.session.commit()
+
+#     return "მონაცემი წარმატებით დაემატა"
+
+
+
+
+
+
+
+
 # @app.route("/about")
 # def about():
 #     return render_template("about.html", Experience=work, Education=edu)

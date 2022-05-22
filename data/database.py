@@ -18,6 +18,24 @@ production = [
             "Price":16,
             "Trademark": "Labline",
         },
+        {
+            "Product":"Acetone",
+            "Description": "Coconut, 80 ml",
+            "Price":1.05,
+            "Trademark": "Labline",
+        },
+        {
+            "Product":"Acetone",
+            "Description": "Aloe vera, 200 ml",
+            "Price":2.5,
+            "Trademark": "Labline",
+        },
+        {
+            "Product":"Acetone",
+            "Description": "Green apple, 500 ml",
+            "Price":10,
+            "Trademark": "Labline",
+        },
     ]
 
 users = [

@@ -4,14 +4,10 @@
 {% if products %}
 
 {% for item in products %}
-   <p> {{ item.id }}. {{ item.pname }}. Price - {{ item.price }}. Trademark - {{item.trademark}}. Description -  {{item.description}} </p>
+   <p> <h6><br>{{ item.id }}. {{ item.pname }} </h6> <br> Price - {{ item.price }}. <br>Trademark - {{item.trademark}}.<br> Description -  {{item.description}}. </p>
     {% endfor %}
     {% else %}
     <p> პროდუქტი ვერ მოიძებნა </p>
     {% endif %}    
-
-
-
-
 
     {% endblock %}

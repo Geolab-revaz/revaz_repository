@@ -39,8 +39,6 @@ def main():
     products  = Product.query.all()
     return render_template("index.html", products=products)
     
-
-
 def insertdata():
     for product in products:
         product = Product(pname=product.get("Product"), price=product.get("Price"), trademark=product.get("Trademark"), description=product.get("Description"))

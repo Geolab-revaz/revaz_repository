@@ -1,11 +1,13 @@
-from itertools import product
-from math import prod
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms.validators import DataRequired
+from wtforms import StringField, IntegerField, TextAreaField
 app = Flask(__name__)
 from database import users, production as products
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pbase.db'
+app.config['SECRET_KEY'] = "super_secret_key"
 db = SQLAlchemy(app)
 
 class Product (db.Model):
@@ -26,14 +28,16 @@ class Users (db.Model):
     def __repr__(self):
         return '<Users %r>' % self.email
 
-
+class ProductsForm(FlaskForm):
+    Product = StringField('სახელი', validators=[DataRequired()])
+    Price = IntegerField('ფასი', validators=[DataRequired()])
+    Trademark = StringField('მარკა', validators=[DataRequired()])
+    Description = TextAreaField('აღწერა', validators=[DataRequired()])
 @app.route("/")
 @app.route("/home")
 def main():
     products  = Product.query.all()
     return render_template("index.html", products=products)
-
-
 
 def insertdata():
     for product in products:
@@ -45,79 +49,41 @@ def insertdata():
         db.session.add (user)
         db.session.commit()
 
+#TODO: POST VS GET
+@app.route("/product_add")
+def addProduct():
+    product = request.args
+    if 'Product' in product:
+        productObj = Product(
+            pname       =product.get("Product"), 
+            price       =product.get("Price"), 
+            trademark   =product.get("Trademark"), 
+            description =product.get("Description")
+            )
+        db.session.add (productObj)
+        db.session.commit()
+        return  "პროდუქტი წარმატებით დაემატა"     
+    form = ProductsForm()
+    return render_template("product_add.html", form=form)
 
+@app.route("/product_edit/<int:id>")
+def editProduct(id):
+    product = request.args
+    if 'Product' in product:
+        productobj = Product.query.filter_by(id=id).first()
+        db.session.add (productobj)
+        db.session.commit()
+        return  "პროდუქტი წარმატებით შეიცვალა"    
+    form = ProductsForm()
+    return render_template("product_edit.html", form=form)
 
-
-
-# @app.route("/product/add")
-# def product_add():
-#     products = product(start="2023", finish="2024", position="Web Developer")
-#     db.session.add(work)
-#     db.session.commit()
-
-#     return "მონაცემი წარმატებით დაემატა"
-
-
-# @app.route("/about")
-# def about():
-#     return render_template("about.html", Experience=work, Education=edu)
-
-# @app.route("/othr")
-# def othr():
-#     return render_template("othr.html")
-
-
-# @app.route("/work/add")
-# def work_add():
-#     work = Work(start="2023", finish="2024", position="Web Developer")
-#     db.session.add(work)
-#     db.session.commit()
-
-#     return "მონაცემი წარმატებით დაემატა"
-
-# @app.route("/work/edit/<int:id>")
-# def work_edit(id):
-#     work = work.query.filter_by(id=id).first()
-#     work.position = "Fullstack web dev"
-#     db.session.add(work)
-#     db.session.commit()
-#     return "მონაცემი წარმატებით განახლდა"
-
-# @app.route("/work/delete/<int:id>")
-# def work_delete(id):
-#     work = work.query.filter_by(id=id).first()
-#     db.session.delete(work)
-#     db.session.commit()
-#     return "მონაცემი წარმატებით განახლდა"
-
-
-
-# @app.route("/contacts")
-# def contacts():
-#     return "<p>Hello, contacts!</p>"
-
-# if __name__ == "__main__":
-#     app.run(debug=True)
-
-
-
-# class Edu (db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     start = db.Column(db.String(20))
-#     finish = db.Column(db.String(20), nullable=True)
-#     curse = db.Column(db.String(220), nullable=False)
-#     description = db.Column(db.Text)
-
-#     def __repr__(self):
-#         return '<Edu %r>' % self.curse
-
-# class Eduform (Form):
-#         start = IntegerField("კურსის დაწყება")
-#         finish = IntegerField("")
-#         curse = StringField("")
-#         description = StringField("")
-
-
+#------------
+@app.route("/product_delete/<int:id>")
+def deleteProduct(id):
+    productobj = Product.query.filter_by(id=id).first()
+    db.session.delete (productobj)
+    db.session.commit()
+    return  "პროდუქტი წარმატებით წაიშალა"
 @app.before_first_request
 def before_first_request():
     db.create_all()

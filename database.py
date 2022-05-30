@@ -35,20 +35,12 @@ production = [
             "Description": "Green apple, 500 ml",
             "Price":10,
             "Trademark": "Labline",
-        },    
+        },
     ]
 
 users = [
         {
-            "Costumer": "unnameduser",
-            "ID": "0000000000",
-            "Address": "unknown",
-            "Tel": "+995 555 555 555",
-        },
-        {
-            "Costumer": "unnameduser2",
-            "ID": 11111111111,
-            "Address": "unknown",
-            "Tel": "+995 555 555 555",
+            "email": "unnameduser",
+            "password": "0000000000",
         },
     ]

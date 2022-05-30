@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %} Product Edit {% endblock %}
+{% block content %} 
+
+
+<form action="" method="GET">
+
+    {{ form.csrf_token }}
+
+    {{ form.Product.label}}
+    {{ form.Product}}
+    <br><br>
+    {{ form.Price.label}}
+    {{ form.Price}}
+    <br><br>
+    {{ form.Trademark.label}}
+    {{ form.Trademark}}
+    <br><br>
+    {{ form.Description.label}}
+    {{ form.Description}}    
+    <br><br>
+
+    <input type="submit" value="შენახვა">
+</form>
+
+{% endblock %}
+
+

@@ -17,7 +17,7 @@ cur = con.cursor()
 
 production = [
     ["Test1", "Satesto1", 99, "Pirveli"],
-    ["Test2", "Satesto2", 99,  "Meore"],
+    ["Test2", "Satesto2", 99, "Meore"],
     ["Test3", "Satesto3", 99, "Mesame"],
 ]
 

@@ -5,7 +5,7 @@
 
 
 {% for item in products %}
-   <p> {{ item.pname }} {{ item.price }} {{item.trademark}} {{item.description}} </p>
+   <p> {{ item.id }}.  {{ item.pname }} {{ item.price }} {{item.trademark}} {{item.description}} </p>
     {% endfor %}
     {% else %}
     <p> პროდუქტი ვერ მოიძებნა </p>

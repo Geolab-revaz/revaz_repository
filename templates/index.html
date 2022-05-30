@@ -3,11 +3,15 @@
 {% block content %} 
 {% if products %}
 
-
 {% for item in products %}
-   <p> {{ item.id }}.  {{ item.pname }} {{ item.price }} {{item.trademark}} {{item.description}} </p>
+   <p> {{ item.id }}. {{ item.pname }}. Price - {{ item.price }}. Trademark - {{item.trademark}}. Description -  {{item.description}} </p>
     {% endfor %}
     {% else %}
     <p> პროდუქტი ვერ მოიძებნა </p>
     {% endif %}    
-{% endblock %}
+
+
+
+
+
+    {% endblock %}

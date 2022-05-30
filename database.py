@@ -43,4 +43,12 @@ users = [
             "email": "unnameduser",
             "password": "0000000000",
         },
+        {
+            "email": "unnameduser1",
+            "password": "0000000000",
+        },
+        {
+            "email": "user2",
+            "password": "1111111111",
+        },
     ]

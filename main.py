@@ -38,6 +38,8 @@ class ProductsForm(FlaskForm):
 def main():
     products  = Product.query.all()
     return render_template("index.html", products=products)
+    
+
 
 def insertdata():
     for product in products:
@@ -49,7 +51,6 @@ def insertdata():
         db.session.add (user)
         db.session.commit()
 
-#TODO: POST VS GET
 @app.route("/product_add")
 def addProduct():
     product = request.args
@@ -77,7 +78,6 @@ def editProduct(id):
     form = ProductsForm()
     return render_template("product_edit.html", form=form)
 
-#------------
 @app.route("/product_delete/<int:id>")
 def deleteProduct(id):
     productobj = Product.query.filter_by(id=id).first()
